@@ -35,7 +35,7 @@ contract Staking is IStaking, AccessControl, Initializable {
         node[nodeId] = NodeInfo(nodeId, nodeName, nodeIcon, nodeDescription);
     }
 
-    // 质押节点
+    // EX质押节点
     function stake(
         bytes32 userId,
         uint256 nodeId,
@@ -44,7 +44,7 @@ contract Staking is IStaking, AccessControl, Initializable {
         _stake(userId, nodeId, number);
     }
 
-    // 批量质押节点
+    // EX批量质押节点
     function stakeBatch(
         bytes32[] calldata userIds,
         uint256[] calldata nodeIds,
@@ -61,12 +61,12 @@ contract Staking is IStaking, AccessControl, Initializable {
     }
 
     // 质押
-    function _stake(bytes32 userId, uint256 nodeId, uint256 number) internal {
+    function _stake(bytes32 userId, uint256 nodeId, uint256 number) private {
         userStaking[userId][nodeId] += number;
         emit Stake(userId, nodeId, number);
     }
 
-    // 释放收益
+    // 释放收益给EX
     function release(uint256 amount) external onlyRole(ADMIN_ROLE) {
         Address.sendValue(payable(exAddress), amount);
         emit Release(exAddress, amount);
