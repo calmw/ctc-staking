@@ -35,12 +35,33 @@ contract Staking is IStaking, AccessControl, Initializable {
         node[nodeId] = NodeInfo(nodeId, nodeName, nodeIcon, nodeDescription);
     }
 
-    // 用户质押节点
+    // 质押节点
     function stake(
         bytes32 userId,
         uint256 nodeId,
         uint256 number
     ) external onlyRole(EX_ROLE) {
+        _stake(userId, nodeId, number);
+    }
+
+    // 批量质押节点
+    function stakeBatch(
+        bytes32[] calldata userIds,
+        uint256[] calldata nodeIds,
+        uint256[] calldata numbers
+    ) external onlyRole(EX_ROLE) {
+        require(
+            userIds.length == nodeIds.length &&
+                userIds.length == numbers.length,
+            "parameters length error"
+        );
+        for (uint256 i = 0; i < userIds.length; i++) {
+            _stake(userIds[i], nodeIds[i], numbers[i]);
+        }
+    }
+
+    // 质押
+    function _stake(bytes32 userId, uint256 nodeId, uint256 number) internal {
         userStaking[userId][nodeId] += number;
         emit Stake(userId, nodeId, number);
     }
