@@ -20,7 +20,7 @@ contract Staking is IStaking, AccessControl, Initializable {
         _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
     }
 
-    // 设置接受释放资产的地址
+    // 设置EX接受释放资产的地址
     function adminSetExAddress(address _exAddress) public onlyRole(ADMIN_ROLE) {
         exAddress = payable(_exAddress);
     }
