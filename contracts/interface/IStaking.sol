@@ -28,16 +28,4 @@ interface IStaking {
         string nodeIcon; // 节点Icon
         string nodeDescription; // 节点描述
     }
-
-    //    function deposit(
-    //        uint256 destinationChainId,
-    //        bytes32 resourceID,
-    //        bytes calldata data
-    //    ) external payable;
-    //
-    //    function fee(uint256 destinationChainId) external view returns (uint256);
-    //
-    //    function getTokenInfoByResourceId(
-    //        bytes32 resourceId
-    //    ) external view returns (uint8, address, bool, uint256, bool, bool);
 }

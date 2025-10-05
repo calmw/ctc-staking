@@ -6,8 +6,10 @@
   "scripts": {
     "prettier": "prettier --write 'contracts/**/*.sol'",
     "build": "npx hardhat compile",
-    "deploy-ctc_test": "npx hardhat --network ctc_test run scripts/testnet/usdy.js",
-    "deploy-ctc": "npx hardhat --network ctc run scripts/mainnet/usdy.js"
+    "deploy-ctc_testnet": "npx hardhat --network ctc_test run scripts/testnet/staking.js",
+    "upgrade-bridge-tantin_testnet": "npx hardhat --network tantin_test run scripts/testnet/staking_upgrade.js",
+    "deploy-ctc_mainnet": "npx hardhat --network ctc run scripts/mainnet/staking.js",
+    "upgrade-bridge-tantin_mainnet": "npx hardhat --network ctc run scripts/mainnet/staking_upgrade.js"
   },
   "keywords": [],
   "author": "",
