@@ -37,21 +37,22 @@ contract Staking is IStaking, AccessControl, Initializable {
 
     // 用户质押节点
     function stake(
-        uint256 nodeId,
         bytes32 userId,
+        uint256 nodeId,
         uint256 number
     ) external onlyRole(EX_ROLE) {
         userStaking[userId][nodeId] += number;
         emit Stake(userId, nodeId, number);
     }
 
-    // 节点释放收益
+    // 释放收益
     function release(uint256 amount) external onlyRole(ADMIN_ROLE) {
         Address.sendValue(payable(exAddress), amount);
         emit Release(exAddress, amount);
     }
 
-    // 获取用户加密后的用户ID
+    // 获取加密后的用户ID
+    // 使用该ID，防止用户信息泄露
     function getKeccak256UserId(
         string calldata userId
     ) public pure returns (bytes32) {
