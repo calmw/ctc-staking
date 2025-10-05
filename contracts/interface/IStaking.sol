@@ -2,14 +2,6 @@
 pragma solidity ^0.8.22;
 
 interface IStaking {
-    //    enum AssetsType {
-    //        None,
-    //        Coin,
-    //        Erc20,
-    //        Erc721,
-    //        Erc1155
-    //    }
-
     event Stake(
         bytes32 indexed userId, // 用户Id
         uint256 indexed nodeId, // 节点Id
