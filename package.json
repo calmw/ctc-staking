@@ -1,0 +1,31 @@
+{
+  "name": "ctc-staking",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "prettier": "prettier --write 'contracts/**/*.sol'",
+    "build": "npx hardhat compile",
+    "deploy-ctc_test": "npx hardhat --network ctc_test run scripts/testnet/usdy.js",
+    "deploy-ctc": "npx hardhat --network ctc run scripts/mainnet/usdy.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^2.0.2",
+    "@nomiclabs/hardhat-ethers": "^2.2.3",
+    "@nomiclabs/hardhat-waffle": "^2.0.6",
+    "@openzeppelin/hardhat-upgrades": "^1.26.0",
+    "chai": "^4.3.7",
+    "ethereum-waffle": "^4.0.10",
+    "ethers": "^5.7.2",
+    "hardhat": "^2.22.9",
+    "prettier-plugin-solidity": "^1.4.1"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^5.0.2",
+    "@openzeppelin/contracts-upgradeable": "^5.0.2",
+    "@openzeppelin/subgraphs": "^0.1.8-5"
+  }
+}

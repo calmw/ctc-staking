@@ -1,1 +1,3 @@
-# ctc-staking
+# CTC staking
+
+- Staking contract
