@@ -53,7 +53,7 @@ contract Staking is IStaking, AccessControl, Initializable {
         require(
             userIds.length == nodeIds.length &&
                 userIds.length == numbers.length,
-            "parameters length error"
+            "array length mismatch"
         );
         for (uint256 i = 0; i < userIds.length; i++) {
             _stake(userIds[i], nodeIds[i], numbers[i]);
@@ -66,9 +66,42 @@ contract Staking is IStaking, AccessControl, Initializable {
         emit Stake(userId, nodeId, number);
     }
 
+    // EX解质押节点
+    function claim(
+        bytes32 userId,
+        uint256 nodeId,
+        uint256 number
+    ) external onlyRole(EX_ROLE) {
+        _claim(userId, nodeId, number);
+    }
+
+    // EX批量解质押节点
+    function claimBatch(
+        bytes32[] calldata userIds,
+        uint256[] calldata nodeIds,
+        uint256[] calldata numbers
+    ) external onlyRole(EX_ROLE) {
+        require(
+            userIds.length == nodeIds.length &&
+                userIds.length == numbers.length,
+            "array length mismatch"
+        );
+        for (uint256 i = 0; i < userIds.length; i++) {
+            _claim(userIds[i], nodeIds[i], numbers[i]);
+        }
+    }
+
+    // 解质押
+    function _claim(bytes32 userId, uint256 nodeId, uint256 number) private {
+        uint256 _number = userStaking[userId][nodeId];
+        require(number <= _number, "claim exceeds staked amount");
+        userStaking[userId][nodeId] -= number;
+        emit Claim(userId, nodeId, number);
+    }
+
     // 释放收益给EX
     function release(uint256 amount) external onlyRole(ADMIN_ROLE) {
-        Address.sendValue(payable(exAddress), amount);
+        Address.sendValue(exAddress, amount);
         emit Release(exAddress, amount);
     }
 
