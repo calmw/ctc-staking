@@ -1,6 +1,6 @@
 require('@openzeppelin/hardhat-upgrades')
 require("@nomiclabs/hardhat-waffle");
-const PRIVATE_KEY = process.env.CTC_USDY
+const PRIVATE_KEY = process.env.CTC_STAKING
 module.exports = {
     solidity: "0.8.22",
     settings: {

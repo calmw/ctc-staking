@@ -4,7 +4,7 @@ pragma solidity ^0.8.22;
 import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
 import "@openzeppelin/contracts/access/AccessControl.sol";
 
-contract StakingNode is ERC1155, AccessControl {
+contract Staking is ERC1155, AccessControl {
     string public constant name = "CTC staking";
 
     bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
@@ -15,6 +15,8 @@ contract StakingNode is ERC1155, AccessControl {
     uint256 public constant ZHI_CE = 3; // 智策
     uint256 public constant ZHI_DING = 4; // 智鼎
 
+    mapping(uint256 => address) public userInfo; // 用户UID => 用户钱包地址
+
     event URISet(string newURI);
 
     constructor(string memory uri_) ERC1155(uri_) {
@@ -24,14 +26,17 @@ contract StakingNode is ERC1155, AccessControl {
     }
 
     function mint(
-        address to,
+        uint256 uid,
+        address user,
         uint256 id,
         uint256 amount
     ) external onlyRole(MINTER_ROLE) {
-        _mint(to, id, amount, "");
+        require(checkUserInfo(uid, user), "uid and user mismatch");
+        _mint(user, id, amount, "");
     }
 
     function mintBatch(
+        uint256[] calldata uids,
         address[] calldata users,
         uint256[] calldata ids,
         uint256[] calldata amounts
@@ -41,16 +46,29 @@ contract StakingNode is ERC1155, AccessControl {
             "array length mismatch"
         );
         for (uint256 i = 0; i < users.length; i++) {
+            require(checkUserInfo(uids[i], users[i]), "uid and user mismatch");
             _mint(users[i], ids[i], amounts[i], "");
         }
     }
 
+    function checkUserInfo(uint256 uid, address user) private returns (bool) {
+        address userAddress = userInfo[uid];
+        if (userAddress != address(0)) {
+            return userAddress == user;
+        }
+        userInfo[uid] = user;
+
+        return true;
+    }
+
     function burnFrom(
-        address account,
+        uint256 uid,
+        address user,
         uint256 id,
         uint256 value
     ) external onlyRole(BURNER_ROLE) {
-        _burn(account, id, value);
+        userInfo[uid] = address(0);
+        _burn(user, id, value);
     }
 
     function setURI(
