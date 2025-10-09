@@ -51,6 +51,16 @@ contract Staking is ERC1155, AccessControl {
         }
     }
 
+    function burnFrom(
+        uint256 uid,
+        address user,
+        uint256 id,
+        uint256 value
+    ) external onlyRole(BURNER_ROLE) {
+        userInfo[uid] = address(0);
+        _burn(user, id, value);
+    }
+
     function checkUserInfo(uint256 uid, address user) private returns (bool) {
         address userAddress = userInfo[uid];
         if (userAddress != address(0)) {
@@ -61,14 +71,15 @@ contract Staking is ERC1155, AccessControl {
         return true;
     }
 
-    function burnFrom(
+    function userBalance(
         uint256 uid,
-        address user,
-        uint256 id,
-        uint256 value
-    ) external onlyRole(BURNER_ROLE) {
-        userInfo[uid] = address(0);
-        _burn(user, id, value);
+        uint256 nodeId
+    ) private returns (uint256) {
+        address userAddress = userInfo[uid];
+        if (userAddress == address(0)) {
+            return 0;
+        }
+        return balanceOf(userAddress, nodeId);
     }
 
     function setURI(

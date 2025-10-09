@@ -10,9 +10,10 @@ async function main() {
     const contract = await ethers.getContractFactory(contract_name)
     console.log("Deploying .........")
 
-    const contractObj = await upgrades.deployProxy(contract, [], {initializer: "initialize"});
-
-    console.log("Proxy address is ", contractObj.address)
+    const contractObj = await contract.deploy('');
+    // 等待部署完成
+    await contractObj.deployed();
+    console.log("contract deployed to:", contractObj.address);
     write_contract_address(perfix + contract_name, contractObj.address)
 }
 
