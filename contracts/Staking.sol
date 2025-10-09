@@ -1,11 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.22;
 
-/// @notice ERC-1155 with AccessControl, minting, burning and per-id totalSupply tracking
-/// @dev Uses OpenZeppelin Contracts
 import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
-//import "@openzeppelin/contracts/token/ERC1155/extensions/ERC1155Burnable.sol";
-//import "@openzeppelin/contracts/token/ERC1155/extensions/ERC1155Supply.sol";
 import "@openzeppelin/contracts/access/AccessControl.sol";
 
 contract StakingNode is ERC1155, AccessControl {
