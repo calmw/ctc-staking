@@ -1,7 +1,17 @@
 ## CTC Staking
 
+- 链信息
+    - 测试链
+        - 链ID：12302
+        - RPC：https://test-rpc.ctcchain.com
+        - 浏览器地址：https://test-scan.ctcchain.com
+
+    - 正式链
+        - 链ID：12301
+        - RPC：https://rpc.ctcchain.com
+        - 浏览器地址：https://scan.ctcchain.com
 - 合约地址
-    - 测试网 0xAAAD14d446FFC211437c867FFe7e8A4913fb6D9c
+    - 测试网 https://test-scan.ctcchain.com/address/0xAAAD14d446FFC211437c867FFe7e8A4913fb6D9c?tab=contract_abi
     - 主网
 
 #### 节点类型
