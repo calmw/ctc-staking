@@ -61,6 +61,21 @@ contract Staking is ERC1155, AccessControl {
         _burn(user, id, value);
     }
 
+    // 转账限制
+    function _updateWithAcceptanceCheck(
+        address from,
+        address to,
+        uint256[] memory ids,
+        uint256[] memory values,
+        bytes memory data
+    ) internal virtual override {
+        require(
+            from == address(0) || to == address(0),
+            "Transfers are disabled"
+        );
+        super._updateWithAcceptanceCheck(from, to, ids, values, data);
+    }
+
     function checkUserInfo(uint256 uid, address user) private returns (bool) {
         address userAddress = userInfo[uid];
         if (userAddress != address(0)) {
@@ -74,7 +89,7 @@ contract Staking is ERC1155, AccessControl {
     function userBalance(
         uint256 uid,
         uint256 nodeId
-    ) private returns (uint256) {
+    ) public view returns (uint256) {
         address userAddress = userInfo[uid];
         if (userAddress == address(0)) {
             return 0;
