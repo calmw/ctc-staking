@@ -11,7 +11,7 @@
         - RPC：https://rpc.ctcchain.com
         - 浏览器地址：https://scan.ctcchain.com
 - 合约地址
-    - 测试网 https://test-scan.ctcchain.com/address/0xAAAD14d446FFC211437c867FFe7e8A4913fb6D9c?tab=contract_abi
+    - 测试网 https://test-scan.ctcchain.com/address/0xEf46C41B1d98265316949EB193F73E02Ba331757?tab=read_write_contract
     - 主网
 
 #### 节点类型

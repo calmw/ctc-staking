@@ -10,10 +10,10 @@ contract Staking is ERC1155, AccessControl {
     bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
     bytes32 public constant BURNER_ROLE = keccak256("BURNER_ROLE");
 
-    mapping(uint256 => address) public userInfo; // 用户UID => 用户钱包地址
-
     event URISet(string newURI);
     event Bind(uint256 uid, address user);
+
+    mapping(uint256 => address) public userInfo; // 用户UID => 用户钱包地址
 
     constructor(string memory uri_) ERC1155(uri_) {
         _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
@@ -78,7 +78,7 @@ contract Staking is ERC1155, AccessControl {
             return userAddress == user;
         }
         userInfo[uid] = user;
-        emit Bind(uid,user);
+        emit Bind(uid, user);
 
         return true;
     }
