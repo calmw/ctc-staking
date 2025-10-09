@@ -28,13 +28,13 @@
     - function mint(
       uint256 uid,
       address user,
-      uint256 id,
+      uint256 nodeId,
       uint256 amount
       ){}
 - 参数
     - uid 用户UID
     - user 用户钱包地址
-    - id 节点类型ID
+    - nodeId 节点ID
     - amount 购买数量
 
 #### 批量购买节点
@@ -43,13 +43,13 @@
     - function mintBatch(
       uint256[] calldata uids,
       address[] calldata users,
-      uint256[] calldata ids,
+      uint256[] calldata nodeIds,
       uint256[] calldata amounts
-      ){}
+      )
 - 参数，参数同一个索引是同一个用户
     - uids 用户UID数组
     - users 用户钱包地址数组
-    - ids 节点类型ID数组
+    - nodeIds 节点ID数组
     - amounts 购买数量数组
 
 #### 销毁已购买节点
@@ -58,13 +58,13 @@
     - function burnFrom(
       uint256 uid,
       address user,
-      uint256 id,
+      uint256 nodeId,
       uint256 value
       ){}
 - 参数
     - uid 用户UID
     - user 用户钱包地址
-    - id 节点类型ID
+    - nodeId 节点ID
     - amount 购买数量
 - 备注：如果购买错了，可以调用此方法，清除购买
 
@@ -77,7 +77,7 @@
       ) public view returns (uint256){}
 - 参数
     - uid 用户UID
-    - nodeId 节点类型ID
+    - nodeId 节点ID
 - 返回值
     - 用户该类型节点购买数量
 
@@ -251,6 +251,25 @@
       }
     ],
     "name": "ApprovalForAll",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "uid",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
+      }
+    ],
+    "name": "Bind",
     "type": "event"
   },
   {
@@ -474,58 +493,6 @@
     "type": "function"
   },
   {
-    "inputs": [],
-    "name": "ZHI_CE",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "ZHI_DING",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "ZHI_HUI",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "ZHI_QI",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
     "inputs": [
       {
         "internalType": "address",
@@ -587,7 +554,7 @@
       },
       {
         "internalType": "uint256",
-        "name": "id",
+        "name": "nodeId",
         "type": "uint256"
       },
       {
@@ -700,7 +667,7 @@
       },
       {
         "internalType": "uint256",
-        "name": "id",
+        "name": "nodeId",
         "type": "uint256"
       },
       {
@@ -728,7 +695,7 @@
       },
       {
         "internalType": "uint256[]",
-        "name": "ids",
+        "name": "nodeIds",
         "type": "uint256[]"
       },
       {
