@@ -10,7 +10,7 @@ async function main() {
     const contract = await ethers.getContractFactory(contract_name)
     console.log("Deploying .........")
 
-    const contractObj = await contract.deploy('');
+    const contractObj = await contract.deploy('https://callback.ttx.one/v1/act/node/dividend/token/{id}.json');
     // 等待部署完成
     await contractObj.deployed();
     console.log("contract deployed to:", contractObj.address);
