@@ -12,6 +12,7 @@ contract Staking is ERC1155, AccessControl {
 
     event URISet(string newURI);
     event Bind(uint256 uid, address user);
+    event UnBind(uint256 uid, address user);
 
     mapping(uint256 => address) public userInfo; // 用户UID => 用户钱包地址
 
@@ -54,6 +55,7 @@ contract Staking is ERC1155, AccessControl {
         uint256 value
     ) external onlyRole(BURNER_ROLE) {
         userInfo[uid] = address(0);
+        emit UnBind(uid, user);
         _burn(user, nodeId, value);
     }
 
@@ -67,7 +69,7 @@ contract Staking is ERC1155, AccessControl {
     ) internal virtual override {
         require(
             from == address(0) || to == address(0),
-            "Transfers are disabled"
+            "transfers are disabled"
         );
         super._updateWithAcceptanceCheck(from, to, ids, values, data);
     }
